@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oa.dao.IAdminDao">
+	<!-- 所有字段别名 -->
+	<sql id="ColumnList">
+		id,
+		account,
+		pswd,
+		createtime,
+		lastlogintime,
+		lastlogouttime,
+		lastloginip,
+		state,
+		org_id orgId
+	</sql>
+
+	<!-- 查询一条数据 -->
+	<select id="findOne" resultType="Admin" parameterType="Admin">
+		select
+		<include refid="ColumnList" />
+		from oa_admin
+		where 1=1
+		and account=#{account}
+		and pswd=#{pswd}
+	</select>
+
+
+
+
+</mapper>

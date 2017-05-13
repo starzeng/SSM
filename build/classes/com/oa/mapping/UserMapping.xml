@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oa.dao.IUserDao">
+	<!-- 所有字段别名 -->
+	<sql id="ColumnList">
+		u_id id,
+		u_account account,
+		u_pswd pswd,
+		u_reg_ip regIp,
+		u_name name,
+		u_tel tel,
+		u_icon icon,
+		u_lv lv,
+		u_kpi kpi,
+		createtime,
+		lastlogintime,
+		lastlogouttime,
+		org_id orgId,
+		state,
+		dept_id deptId
+	</sql>
+
+	<!-- 查询结果集 -->
+	<resultMap type="User" id="ResultMap">
+		<id property="id" column="u_id" />
+		<result property="account" column="u_account" />
+		<result property="pswd" column="u_pswd" />
+		<result property="regIp" column="u_reg_ip" />
+		<result property="name" column="u_name" />
+		<result property="tel" column="u_tel" />
+		<result property="icon" column="u_icon" />
+		<result property="lv" column="u_lv" />
+		<result property="kpi" column="u_kpi" />
+		<result property="createtime" column="createtime" />
+		<result property="lastlogintime" column="lastlogintime" />
+		<result property="lastlogouttime" column="lastlogouttime" />
+		<result property="orgId" column="org_id" />
+		<result property="deptId" column="dept_id" />
+	</resultMap>
+
+	<!-- 查询多条数据 -->
+	<select id="findAll" resultMap="ResultMap">
+		select
+		<include refid="ColumnList" />
+		from oa_user
+		where 1=1
+		and org_id=#{orgId}
+		order by createtime desc
+	</select>
+
+	<!-- 插入数据 -->
+	<insert id="add" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO oa_user(u_account,u_pswd,u_reg_ip,u_name,u_tel,u_icon,org_id,dept_id)
+		VALUES(#{account},#{pswd},#{regIp},#{name},#{tel},#{icon},#{orgId},#{deptId})
+	</insert>
+
+	<!-- 删除数据 -->
+	<delete id="delete" parameterType="User">
+		delete from oa_user where 1=1 and u_id=#{id}
+	</delete>
+
+</mapper>
